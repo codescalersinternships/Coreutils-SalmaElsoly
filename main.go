@@ -18,6 +18,10 @@ func main(){
 			cmd.Head()
 		case "tail":
 			cmd.Tail()
+		case "wc":
+			cmd.WordCount()
+		case "cat":
+			cmd.Cat()
 		default:
 			fmt.Println("Enter valid command")
 
