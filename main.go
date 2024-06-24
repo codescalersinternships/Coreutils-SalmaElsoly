@@ -22,6 +22,8 @@ func main(){
 			cmd.WordCount()
 		case "cat":
 			cmd.Cat()
+		case "echo":
+			cmd.Echo()
 		default:
 			fmt.Println("Enter valid command")
 
