@@ -6,12 +6,6 @@ import (
 	"os"
 )
 
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
-
 func main(){
 	switch os.Args[1]{
 		case "head":
@@ -24,6 +18,8 @@ func main(){
 			cmd.Cat()
 		case "echo":
 			cmd.Echo()
+		case "env":
+			cmd.Env()
 		default:
 			fmt.Println("Enter valid command")
 
