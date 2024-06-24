@@ -6,14 +6,12 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"log"
 )
 
 func check(e error) {
 	if e != nil {
-		fmt.Println(e)
-		fmt.Println("error occured")
-		panic(e)
-
+		log.Fatal(e)
 	}
 }
 
@@ -36,9 +34,9 @@ func main() {
 		linesOfFile = append(linesOfFile, fileScanner.Text())
 	}
 
-	for i := 1; i <= *numberOfLines; i++ {
+	for i := 0; i < *numberOfLines; i++ {
 		if i < len(linesOfFile) {
-			fmt.Println(linesOfFile[len(linesOfFile)-i])
+			fmt.Println(linesOfFile[len(linesOfFile)-*numberOfLines+i])
 		}
 
 	}
