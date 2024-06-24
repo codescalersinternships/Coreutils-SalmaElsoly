@@ -20,6 +20,12 @@ func main(){
 			cmd.Echo()
 		case "env":
 			cmd.Env()
+		case "yes":
+			cmd.Yes()
+		case "false":
+			os.Exit(3)
+		case "true":
+			os.Exit(0)
 		default:
 			fmt.Println("Enter valid command")
 
