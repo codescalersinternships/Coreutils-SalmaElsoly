@@ -9,10 +9,7 @@ import (
 )
 func check(e error) {
 	if e != nil {
-		fmt.Println(e)
-		fmt.Println("error occured")
-		panic(e)
-
+		log.fatal(e)
 	}
 }
 
