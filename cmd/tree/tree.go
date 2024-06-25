@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
-	"log"
 )
 
 func check(e error) {
@@ -13,18 +13,18 @@ func check(e error) {
 		log.Fatal(e)
 	}
 }
-var(
-	level int
-	directoriesOnly bool
-)
-func main() {
-	treeCmd := flag.NewFlagSet("tree", flag.ExitOnError)
-	treeCmd.BoolVar(&directoriesOnly,"d", false, "directoriesOnly")
-	treeCmd.IntVar(&level,"L", 1, "level")
 
-	treeCmd.Parse(os.Args[1:])
-	if len(treeCmd.Args()) > 0 {
-		lisit(1, level, directoriesOnly, treeCmd.Args()[0])
+func main() {
+	var (
+		level           int
+		directoriesOnly bool
+	)
+	flag.BoolVar(&directoriesOnly, "d", false, "directoriesOnly")
+	flag.IntVar(&level, "L", 1, "level")
+
+	flag.Parse()
+	if len(flag.Args()) > 0 {
+		lisit(1, level, directoriesOnly, flag.Args()[0])
 	} else {
 		curr, err := os.Getwd()
 		fmt.Println(curr)

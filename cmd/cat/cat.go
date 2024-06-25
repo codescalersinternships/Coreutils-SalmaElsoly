@@ -4,23 +4,22 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"os"
 	"log"
+	"os"
 )
+
 func check(e error) {
 	if e != nil {
 		log.Fatal(e)
 	}
 }
-var(
-	numberedLines bool
-)
-func main() {
-	catCmd := flag.NewFlagSet("wc", flag.ExitOnError)
-	catCmd.BoolVar(&numberedLines,"n", false, "numberedFiles")
 
-	catCmd.Parse(os.Args[1:])
-	args := catCmd.Args()
+func main() {
+	var numberedLines bool
+	flag.BoolVar(&numberedLines, "n", false, "numberedFiles")
+
+	flag.Parse()
+	args := flag.Args()
 	if len(args) > 1 {
 		fileToWrite, errWrite := os.OpenFile(args[len(args)-1], os.O_CREATE, 0666)
 		check(errWrite)

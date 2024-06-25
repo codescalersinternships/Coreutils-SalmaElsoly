@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
-	"log"
 )
 
 func check(e error) {
@@ -14,19 +14,19 @@ func check(e error) {
 		log.Fatal(e)
 	}
 }
-var(
-	lines bool
-	words bool
-	characters bool
-)
-func main(){
-	wcCmd := flag.NewFlagSet("wc", flag.ExitOnError)
-	wcCmd.BoolVar(&lines,"l", false, "lines")
-	wcCmd.BoolVar(&words,"w", false, "words")
-	wcCmd.BoolVar(&characters,"c", false, "characters")
 
-	wcCmd.Parse(os.Args[1:])
-	path := wcCmd.Args()[0]
+func main() {
+	var (
+		lines      bool
+		words      bool
+		characters bool
+	)
+	flag.BoolVar(&lines, "l", false, "lines")
+	flag.BoolVar(&words, "w", false, "words")
+	flag.BoolVar(&characters, "c", false, "characters")
+
+	flag.Parse()
+	path := flag.Args()[0]
 
 	absPath, err := filepath.Abs(path)
 	check(err)

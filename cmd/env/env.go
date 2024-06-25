@@ -25,7 +25,7 @@ func main() {
 			str := os.Getenv(args[i])
 			if strings.Contains(str, ";") {
 				values := strings.Split(str, ";")
-				for j := range len(values) {
+				for j := range values {
 					fmt.Println(args[i], ":", values[j])
 				}
 			} else {

@@ -3,18 +3,16 @@ package main
 import (
 	"fmt"
 	"os"
-	"time"
 )
 
 func main() {
 	args := os.Args[1:]
-	for range 10 {
+	for {
 		if len(args) > 0 {
 			fmt.Println(args[0])
 		} else {
-			fmt.Println("yes")
+			fmt.Println("y")
 		}
-		time.Sleep(1 * time.Second)
 	}
 
 }

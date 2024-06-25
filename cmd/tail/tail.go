@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
-	"log"
 )
 
 func check(e error) {
@@ -14,14 +14,12 @@ func check(e error) {
 		log.Fatal(e)
 	}
 }
-var(
-	numberOfLines int
-)
+
 func main() {
-	tailCmd := flag.NewFlagSet("tail", flag.ExitOnError)
-	tailCmd.IntVar(&numberOfLines,"n", 10, "numberOfLines")
-	tailCmd.Parse(os.Args[1:])
-	path := tailCmd.Args()[0]
+	var numberOfLines int
+	flag.IntVar(&numberOfLines, "n", 10, "numberOfLines")
+	flag.Parse()
+	path := flag.Args()[0]
 	absPath, err := filepath.Abs(path)
 	check(err)
 

@@ -3,16 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 )
-var(
-	trailing bool
-)
+
 func main() {
-	echoCmd := flag.NewFlagSet("head", flag.ExitOnError)
-	echoCmd.BoolVar(&trailing,"n", false, "newLine")
-	echoCmd.Parse(os.Args[1:])
-	args := echoCmd.Args()
+	var trailing bool
+	flag.BoolVar(&trailing, "n", false, "newLine")
+	flag.Parse()
+	args := flag.Args()
 
 	for i := 0; i < len(args); i++ {
 		if trailing {
