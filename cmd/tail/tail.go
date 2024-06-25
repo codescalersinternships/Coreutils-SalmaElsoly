@@ -14,10 +14,12 @@ func check(e error) {
 		log.Fatal(e)
 	}
 }
-
+var(
+	numberOfLines int
+)
 func main() {
 	tailCmd := flag.NewFlagSet("tail", flag.ExitOnError)
-	numberOfLines := tailCmd.Int("n", 10, "numberOfLines")
+	tailCmd.IntVar(&numberOfLines,"n", 10, "numberOfLines")
 	tailCmd.Parse(os.Args[1:])
 	path := tailCmd.Args()[0]
 	absPath, err := filepath.Abs(path)
@@ -34,9 +36,9 @@ func main() {
 		linesOfFile = append(linesOfFile, fileScanner.Text())
 	}
 
-	for i := 0; i < *numberOfLines; i++ {
+	for i := 0; i < numberOfLines; i++ {
 		if i < len(linesOfFile) {
-			fmt.Println(linesOfFile[len(linesOfFile)-*numberOfLines+i])
+			fmt.Println(linesOfFile[len(linesOfFile)-numberOfLines+i])
 		}
 
 	}

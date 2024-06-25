@@ -12,20 +12,23 @@ func check(e error) {
 		log.fatal(e)
 	}
 }
-
+var(
+	level int
+	directoriesOnly bool
+)
 func main() {
 	treeCmd := flag.NewFlagSet("tree", flag.ExitOnError)
-	directoriesOnly := treeCmd.Bool("d", false, "directoriesOnly")
-	level := treeCmd.Int("L", 1, "level")
+	treeCmd.BoolVar(,&directoriesOnly"d", false, "directoriesOnly")
+	treeCmd.IntVar(&level,"L", 1, "level")
 
 	treeCmd.Parse(os.Args[1:])
 	if len(treeCmd.Args()) > 0 {
-		lisit(1, *level, *directoriesOnly, treeCmd.Args()[0])
+		lisit(1, level, directoriesOnly, treeCmd.Args()[0])
 	} else {
 		curr, err := os.Getwd()
 		fmt.Println(curr)
 		check(err)
-		lisit(1, *level, *directoriesOnly, curr)
+		lisit(1, level, directoriesOnly, curr)
 	}
 
 }

@@ -11,10 +11,12 @@ func check(e error) {
 		log.fatal(e)
 	}
 }
-
+var(
+	numberedLines bool
+)
 func main() {
 	catCmd := flag.NewFlagSet("wc", flag.ExitOnError)
-	numberedLines := catCmd.Bool("n", false, "numberedFiles")
+	catCmd.BoolVar(&numberedLines,"n", false, "numberedFiles")
 
 	catCmd.Parse(os.Args[1:])
 	args := catCmd.Args()
@@ -39,7 +41,7 @@ func main() {
 		fileScanner := bufio.NewScanner(readFile)
 		count := 0
 		for fileScanner.Scan() {
-			if *numberedLines {
+			if numberedLines {
 				count++
 				fmt.Println(count, " ", fileScanner.Text())
 			} else {
