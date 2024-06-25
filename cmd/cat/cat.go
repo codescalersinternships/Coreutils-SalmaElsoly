@@ -5,10 +5,11 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"log"
 )
 func check(e error) {
 	if e != nil {
-		log.fatal(e)
+		log.Fatal(e)
 	}
 }
 var(
@@ -56,7 +57,7 @@ func main() {
 		fileScanner := bufio.NewScanner(fileToRead)
 		count := 0
 		for fileScanner.Scan() {
-			if *numberedLines {
+			if numberedLines {
 				count++
 				fmt.Println(count, " ", fileScanner.Text())
 			} else {

@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"log"
 )
 
 func check(e error) {
 	if e != nil {
-		log.fatal(e)
+		log.Fatal(e)
 	}
 }
 var(
@@ -18,7 +19,7 @@ var(
 )
 func main() {
 	treeCmd := flag.NewFlagSet("tree", flag.ExitOnError)
-	treeCmd.BoolVar(,&directoriesOnly"d", false, "directoriesOnly")
+	treeCmd.BoolVar(&directoriesOnly,"d", false, "directoriesOnly")
 	treeCmd.IntVar(&level,"L", 1, "level")
 
 	treeCmd.Parse(os.Args[1:])

@@ -6,10 +6,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"log"
 )
 func check(e error) {
 	if e != nil {
-		log.fatal(e)
+		log.Fatal(e)
 	}
 }
 

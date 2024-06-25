@@ -6,11 +6,12 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"log"
 )
 
 func check(e error) {
 	if e != nil {
-		log.fatal(e)
+		log.Fatal(e)
 	}
 }
 var(
@@ -20,9 +21,9 @@ var(
 )
 func main(){
 	wcCmd := flag.NewFlagSet("wc", flag.ExitOnError)
-	lines := wcCmd.BoolVar(&lines,"l", false, "lines")
-	words := wcCmd.BoolVar(&words,"w", false, "words")
-	characters := wcCmd.BoolVar(&characters,"c", false, "characters")
+	wcCmd.BoolVar(&lines,"l", false, "lines")
+	wcCmd.BoolVar(&words,"w", false, "words")
+	wcCmd.BoolVar(&characters,"c", false, "characters")
 
 	wcCmd.Parse(os.Args[1:])
 	path := wcCmd.Args()[0]
