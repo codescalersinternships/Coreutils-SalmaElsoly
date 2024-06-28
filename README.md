@@ -19,9 +19,6 @@ Here are the usage instructions for each implemented command:
  * ` ./cat -n <filepath> `
 -n : for numbered lines output
 
-* `./cat <filepath> .. <filepath>`
-Concatentes all files to the last file 
-
 ### 2. Echo
 `./echo -n <string>`
 * Print arguments to standard output.
@@ -57,7 +54,7 @@ To set the value for the specfied variable
 
 ### 8. Yes
 `./yes <string>`
-* Repeatedly outputs the specified string, or "yes" if no string is specified.
+* Repeatedly outputs the specified string, or "y" if no string is specified.
 
 ### 9. False
 `./false`
