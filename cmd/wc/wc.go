@@ -2,11 +2,12 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"flag"
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
+	"strings"
 )
 
 func check(e error) {
@@ -26,36 +27,39 @@ func main() {
 	flag.BoolVar(&characters, "c", false, "characters")
 
 	flag.Parse()
-	path := flag.Args()[0]
-
-	absPath, err := filepath.Abs(path)
-	check(err)
-
-	if lines {
-		readFileLines, err := os.Open(absPath)
-		check(err)
-		lineScanner := bufio.NewScanner(readFileLines)
-		lineScanner.Split(bufio.ScanLines)
-		linesC := 0
-		for lineScanner.Scan() {
-			linesC++
-		}
-		fmt.Println("lines count: ", linesC)
+	if len(flag.Args()) < 1 {
+		errNoArg := errors.New("No file specified")
+		log.Fatal(errNoArg)
 	}
-	if words {
-		readFileWords, err := os.Open(absPath)
-		check(err)
-		wordScanner := bufio.NewScanner(readFileWords)
-		wordScanner.Split(bufio.ScanWords)
-		wordsC := 0
-		charsC := 0
-		for wordScanner.Scan() {
-			wordsC++
-			charsC += len(wordScanner.Text())
-		}
+	var (
+		linesC = 0
+		wordsC = 0
+		charsC = 0
+	)
+	readFileLines, err := os.Open(flag.Args()[0])
+	check(err)
+	defer readFileLines.Close()
+	lineScanner := bufio.NewScanner(readFileLines)
+	lineScanner.Split(bufio.ScanLines)
+	for lineScanner.Scan() {
+		linesC++
+		wordsC += len(strings.Split(lineScanner.Text(), " "))
+		charsC += len([]byte(lineScanner.Text()))
+	}
+	if !lines && !words && !characters {
+		fmt.Println("lines count: ", linesC)
 		fmt.Println("words count:", wordsC)
-		if characters {
+		fmt.Println("chars count:", charsC)
+	}else{
+		if lines{
+			fmt.Println("lines count: ", linesC)
+		}
+		if words{
+			fmt.Println("words count:", wordsC)
+		}
+		if characters{
 			fmt.Println("chars count:", charsC)
 		}
 	}
+
 }

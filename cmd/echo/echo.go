@@ -2,20 +2,20 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"os"
 )
 
 func main() {
-	var trailing bool
-	flag.BoolVar(&trailing, "n", false, "newLine")
+	var newLineTrailing bool
+	flag.BoolVar(&newLineTrailing, "n", false, " omit the trailing newline")
 	flag.Parse()
 	args := flag.Args()
 
 	for i := 0; i < len(args); i++ {
-		if trailing {
-			fmt.Print(args[i], " ")
+		if newLineTrailing {
+			os.Stdout.WriteString(args[i]+" ")
 		} else {
-			fmt.Println(args[i])
+			os.Stdout.WriteString(args[i]+"\n")
 		}
 	}
 }

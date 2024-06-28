@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
+	"errors"
 )
 
 func check(e error) {
@@ -19,12 +19,13 @@ func main() {
 	var numberOfLines int
 	flag.IntVar(&numberOfLines, "n", 10, "numberOfLines")
 	flag.Parse()
-	path := flag.Args()[0]
-	absPath, err := filepath.Abs(path)
+	if len(flag.Args()) < 1 {
+		errNoArg:= errors.New("No file specified")
+		log.Fatal(errNoArg)
+	}
+	readFile, err := os.Open(flag.Args()[0])
 	check(err)
-
-	readFile, err := os.Open(absPath)
-	check(err)
+	defer readFile.Close()
 
 	fileScanner := bufio.NewScanner(readFile)
 

@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 func check(e error) {
@@ -24,19 +25,18 @@ func main() {
 
 	flag.Parse()
 	if len(flag.Args()) > 0 {
-		lisit(1, level, directoriesOnly, flag.Args()[0])
+		getNestedDirectoriesAndFiles(1, level, directoriesOnly, flag.Args()[0])
 	} else {
 		curr, err := os.Getwd()
 		fmt.Println(curr)
 		check(err)
-		lisit(1, level, directoriesOnly, curr)
+		getNestedDirectoriesAndFiles(1, level, directoriesOnly, curr)
 	}
 
 }
 
-func lisit(currLevel int, maxLevel int, directoriesOnly bool, path string) {
+func getNestedDirectoriesAndFiles(currLevel int, maxLevel int, directoriesOnly bool, path string) {
 	content, err := os.ReadDir(path)
-	fmt.Println(content)
 	check(err)
 	if currLevel > maxLevel {
 		return
@@ -44,17 +44,13 @@ func lisit(currLevel int, maxLevel int, directoriesOnly bool, path string) {
 
 	for _, entry := range content {
 		if entry.IsDir() {
-			for i := 1; i < currLevel; i++ {
-				fmt.Print(" ")
-			}
+			fmt.Print(strings.Repeat("   ", currLevel))
 			fmt.Println("|__", entry.Name())
-			lisit((currLevel + 1), maxLevel, directoriesOnly, filepath.Join(path, entry.Name()))
+			getNestedDirectoriesAndFiles((currLevel + 1), maxLevel, directoriesOnly, filepath.Join(path, entry.Name()))
 		} else {
 			if !directoriesOnly {
-				for i := 1; i < currLevel; i++ {
-					fmt.Println("|")
-					fmt.Print("---", entry.Name())
-				}
+				fmt.Print(strings.Repeat("   ", currLevel))
+				fmt.Println("|__", entry.Name())
 			}
 		}
 	}
