@@ -17,11 +17,7 @@ func check(e error) {
 }
 
 func main() {
-	var (
-		lines      bool
-		words      bool
-		characters bool
-	)
+	var lines, words, characters bool
 	flag.BoolVar(&lines, "l", false, "lines")
 	flag.BoolVar(&words, "w", false, "words")
 	flag.BoolVar(&characters, "c", false, "characters")
@@ -31,11 +27,7 @@ func main() {
 		errNoArg := errors.New("No file specified")
 		log.Fatal(errNoArg)
 	}
-	var (
-		linesC = 0
-		wordsC = 0
-		charsC = 0
-	)
+	var linesC, wordsC, charsC int
 	readFileLines, err := os.Open(flag.Args()[0])
 	check(err)
 	defer readFileLines.Close()
@@ -50,14 +42,14 @@ func main() {
 		fmt.Println("lines count: ", linesC)
 		fmt.Println("words count:", wordsC)
 		fmt.Println("chars count:", charsC)
-	}else{
-		if lines{
+	} else {
+		if lines {
 			fmt.Println("lines count: ", linesC)
 		}
-		if words{
+		if words {
 			fmt.Println("words count:", wordsC)
 		}
-		if characters{
+		if characters {
 			fmt.Println("chars count:", charsC)
 		}
 	}

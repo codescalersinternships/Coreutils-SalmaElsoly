@@ -2,7 +2,8 @@ package main
 
 import (
 	"flag"
-	"os"
+	"fmt"
+	"strings"
 )
 
 func main() {
@@ -11,11 +12,13 @@ func main() {
 	flag.Parse()
 	args := flag.Args()
 
+	if newLineTrailing {
+		fmt.Print(strings.Join(args, " "))
+		return
+	}
 	for i := 0; i < len(args); i++ {
-		if newLineTrailing {
-			os.Stdout.WriteString(args[i]+" ")
-		} else {
-			os.Stdout.WriteString(args[i]+"\n")
-		}
+
+		fmt.Println(args[i])
+
 	}
 }

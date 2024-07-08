@@ -2,11 +2,11 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"flag"
 	"fmt"
 	"log"
 	"os"
-	"errors"
 )
 
 func check(e error) {
@@ -20,7 +20,7 @@ func main() {
 	flag.IntVar(&numberOfLines, "n", 10, "numberOfLines")
 	flag.Parse()
 	if len(flag.Args()) < 1 {
-		errNoArg:= errors.New("No file specified")
+		errNoArg := errors.New("No file specified")
 		log.Fatal(errNoArg)
 	}
 	readFile, err := os.Open(flag.Args()[0])

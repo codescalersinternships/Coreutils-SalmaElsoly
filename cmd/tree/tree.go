@@ -28,7 +28,6 @@ func main() {
 		getNestedDirectoriesAndFiles(1, level, directoriesOnly, flag.Args()[0])
 	} else {
 		curr, err := os.Getwd()
-		fmt.Println(curr)
 		check(err)
 		getNestedDirectoriesAndFiles(1, level, directoriesOnly, curr)
 	}
@@ -36,12 +35,11 @@ func main() {
 }
 
 func getNestedDirectoriesAndFiles(currLevel int, maxLevel int, directoriesOnly bool, path string) {
-	content, err := os.ReadDir(path)
-	check(err)
 	if currLevel > maxLevel {
 		return
 	}
-
+	content, err := os.ReadDir(path)
+	check(err)
 	for _, entry := range content {
 		if entry.IsDir() {
 			fmt.Print(strings.Repeat("   ", currLevel))
